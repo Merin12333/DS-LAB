@@ -1,0 +1,668 @@
+PROGRAM-4
+
+#include <stdio.h>
+int a[50], n, choice, i, x, j;
+void insert()
+{
+int pos;
+printf("Enter the position :");
+scanf("%d", &pos);
+if (pos < 0 || pos > n)
+{
+printf("Invalid position");
+return;
+}
+else
+{
+printf("Enter the element to insert: ");
+scanf("%d", &x);
+
+for (i = n; i > pos; i--)
+{
+a[i] = a[i - 1];
+}
+a[pos] = x;
+n++;
+}
+}
+
+void delete()
+{
+int pos;
+
+printf("Enter the position of element to delete: ");
+scanf("%d", &pos);
+if (pos < 0 || pos > n)
+{
+printf("Ivalid position");
+return;
+}
+else
+{
+if (pos >= n + 1)
+{
+printf("Deletion is not possible");
+}
+else
+{
+for (i = pos; i < n - 1; i++)
+{
+a[i] = a[i + 1];
+}
+n--;
+}
+}
+}
+
+void display()
+{
+printf("Array Elements:\n");
+for (i = 0; i < n; i++)
+{
+printf("%d\n", a[i]);
+}
+}
+
+void sort()
+{
+int temp;
+for (i = 0; i < n - 1; i++)
+{
+for (j = 0; j < n - i - 1; j++)
+{
+if (a[j] > a[j + 1])
+{
+temp = a[j];
+a[j] = a[j + 1];
+a[j + 1] = temp;
+}
+}
+}
+}
+
+void merge()
+{
+int n2, n3, b[50], c[50];
+printf("Enter the size of second array: ");
+scanf("%d", &n2);
+printf("Enter the array of second elements: ");
+for (i = 0; i < n2; i++)
+{
+scanf("%d", &b[i]);
+}
+n3 = n + n2;
+for (i = 0; i < n; i++)
+{
+c[i] = a[i];
+
+}
+for (i = 0; i < n2; i++)
+{
+c[i + n] = b[i];
+}
+
+n=n3;
+for(i = 0; i< n3; i++){
+a[i] = c[i];
+}
+printf("The merged array: ");
+for (i = 0; i < n3; i++)
+{
+printf("%d ", a[i]);
+}
+}
+int main()
+{
+printf("Enter the size of array: ");
+scanf("%d", &n);
+printf("Enter the elements: ");
+for (i = 0; i < n; i++)
+{
+scanf("%d", &a[i]);
+}
+while (choice != 6)
+{
+printf("\nEnter the choice \n1.Insert 2.Delete 3.Sort 4.Merge 5.Display 6.Exit: ");
+scanf("%d", &choice);
+switch (choice)
+{
+case 1:
+
+{
+insert();
+break;
+}
+case 2:
+{
+delete();
+break;
+}
+case 3:
+{
+sort();
+display();
+break;
+}
+case 4:
+{
+merge();
+break;
+}
+case 5:
+{
+display();
+break;
+}
+case 6:
+{
+printf("\nExit\n");
+break;
+}
+
+default:
+{
+
+printf("Enter the invalid option");
+}
+}
+}
+return 0;
+}
+
+
+PROGRAM-5
+
+#include <stdio.h>
+
+
+int linearSearch(int arr[], int size, int target) {
+    for (int i = 0; i < size; i++) {
+        if (arr[i] == target) {
+            return i;
+        }
+    }
+    return -1; 
+}
+
+
+int binarySearch(int arr[], int size, int target) {
+    int left = 0, right = size - 1;
+    while (left <= right) {
+        int mid = left + (right - left) / 2;
+        if (arr[mid] == target) {
+            return mid;
+        }
+        if (arr[mid] < target) {
+            left = mid + 1;
+        } else {
+            right = mid - 1;
+        }
+    }
+    return -1; 
+}
+
+int main() {
+    int arr[100];
+    int size, target, choice, result;
+
+    
+    printf("Enter the size of the array (max 100): ");
+    scanf("%d", &size);
+
+    // Input for array elements
+    printf("Enter the elements of the array:\n");
+    for (int i = 0; i < size; i++) {
+        scanf("%d", &arr[i]);
+    }
+
+    while (1) {
+        printf("\nSelect an option:\n 1. Linear Search\n 2. Binary Search\n 3. Exit\n");
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1:
+                
+                printf("Enter the value to search for: ");
+                scanf("%d", &target);
+                result = linearSearch(arr, size, target);
+                if (result != -1) {
+                    printf("Linear search: Element %d found at index %d.\n", target, result);
+                } else {
+                    printf("Linear search: Element %d not found.\n", target);
+                }
+                break;
+
+            case 2:
+                
+                
+                for (int i = 0; i < size-1; i++) {
+                    for (int j = 0; j < size-i-1; j++) {
+                        if (arr[j] > arr[j+1]) {
+                            int temp = arr[j];
+                            arr[j] = arr[j+1];
+                            arr[j+1] = temp;
+                        }
+                    }
+                }
+
+                printf("Enter the value to search for: ");
+                scanf("%d", &target);
+                result = binarySearch(arr, size, target);
+                if (result != -1) {
+                    printf("Binary search: Element %d found at index %d.\n", target, result);
+                } else {
+                    printf("Binary search: Element %d not found.\n", target);
+                }
+                break;
+
+            case 3:
+                return 0; 
+
+            default:
+                printf("Invalid choice. Please try again.\n");
+                break;
+        }
+    }
+
+    return 0;
+}
+
+PROGRAM-6
+
+#include<stdio.h>
+int a[50][50],b[50][50],c[50][50],i,j,k,l,n,m,p,q,ch;
+void add();
+void multiply();
+void transpose();
+int main()
+{
+	//reading matrix 1
+	printf("Enter the order of first matrix:");
+	scanf("%d %d",&n,&m);
+	printf("Enter the elements of the matrix:");
+	for(i=0;i<n;i++)
+	{
+		for(j=0;j<m;j++)
+		{
+			scanf("%d",&a[i][j]);
+		}
+	}
+	//printing matrix 1
+	printf("Matrix 1 is:\n");
+	for(i=0;i<n;i++)
+	{
+		for(j=0;j<m;j++)
+		{
+			printf("%d ",a[i][j]);
+		}
+		printf("\n");
+	}
+	
+	//reading matrix 2
+	printf("Enter the order of second matrix:");
+	scanf("%d %d",&p,&q);
+	printf("Enter the elements of the matrix:");
+	for(i=0;i<p;i++)
+	{
+		for(j=0;j<q;j++)
+		{
+			scanf("%d",&b[i][j]);
+		}
+	}
+	//printing matrix 2
+	printf("Matrix 2 is:\n");
+	for(i=0;i<p;i++)
+	{
+		for(j=0;j<q;j++)
+		{
+			printf("%d ",b[i][j]);
+		}
+		printf("\n");
+	}
+	do
+	{
+	printf("\n1.Add\n2.Multiply\n3.Transpose\n4.Exit");
+	printf("\nEnter your choice:");
+	scanf("%d",&ch);
+	switch(ch)
+	{
+		case 1:
+		add();
+		break;
+			
+		case 2:
+		multiply();
+		break;
+		
+		case 3:
+		transpose();
+		break;
+		
+		case 4:
+		break;
+		
+		default:
+		printf("Invalid choice");
+	}
+	}while(ch!=4);
+}
+
+void add()
+{	
+	printf("Sum of the matrix is:\n");
+	for(i=0;i<n;i++)
+	{
+		for(j=0;j<m;j++)
+		{
+			c[i][j]=a[i][j]+b[i][j];
+			printf("%d ",c[i][j]);
+		}
+		printf("\n");
+	}
+	return 0;
+}
+void multiply()
+{	
+	printf("Multiplication of the matrix is:\n");
+	for(i=0;i<n;i++)
+	{
+		for(j=0;j<m;j++)
+		{
+			c[i][j]=a[i][j]*b[i][j];
+			printf("%d ",c[i][j]);
+		}
+		printf("\n");
+	}
+	return 0;
+}
+void transpose()
+{
+	printf("Transpose of the matrix 1 is:\n");
+	for(i=0;i<n;i++)
+	{
+		for(j=0;j<m;j++)
+		{
+			printf("%d ",a[j][i]);
+		}
+		printf("\n");
+	}
+	printf("Transpose of the matrix 2 is:\n");
+	for(i=0;i<p;i++)
+	{
+		for(j=0;j<q;j++)
+		{
+			printf("%d ",b[j][i]);
+		}
+		printf("\n");
+	}
+
+	return 0;
+}
+
+PROGRAM-7
+
+#include <stdio.h>
+
+struct Distance {
+   int feet;
+   float inch;
+} d1, d2, result;
+
+int main() {
+   
+   printf("Enter 1st distance\n");
+   printf("Enter feet: ");
+   scanf("%d", &d1.feet);
+   printf("Enter inch: ");
+   scanf("%f", &d1.inch);
+ 
+   
+   printf("\nEnter 2nd distance\n");
+   printf("Enter feet: ");
+   scanf("%d", &d2.feet);
+   printf("Enter inch: ");
+   scanf("%f", &d2.inch);
+   
+   // adding distances
+   result.feet = d1.feet + d2.feet;
+   result.inch = d1.inch + d2.inch;
+
+   // convert inches to feet if greater than 12
+   while (result.inch >= 12.0) {
+      result.inch = result.inch - 12.0;
+      ++result.feet;
+   }
+   printf("\nSum of distances = %d\'-%.1f\"\n", result.feet, result.inch);
+   return 0;
+}
+
+PROGRAM-8
+
+#include<stdio.h>
+int a[50],n,i,top=-1,ch,item;
+void push();
+void pop();
+void display();
+int main()
+{
+printf("Enter the size of the array:");
+scanf("%d",&n);
+do
+{
+printf(" \n1.Push \n 2.Pop \n 3.Display \n 4.Exit");
+printf("\n Enter your choice:");
+scanf("%d",&ch);
+switch(ch)
+{
+case 1:
+push();
+break;
+case 2:
+pop();
+display();
+break;
+case 3:
+display();
+break;
+case 4:
+break;
+default:printf("\n Wrong choice\n");
+}
+}
+while(ch!=4);
+return 0;
+}
+void push()
+{
+if(top==n-1)
+{
+printf("\nStack is overflow\n");
+}
+else
+{
+printf("Enter the value :");
+scanf("%d",&item);
+top=top+1;
+a[top]=item;
+printf("\nElement Inserted Successfully\n");
+}
+}
+void pop()
+{
+if(top==-1)
+{
+printf("\nStack is underflow\n");
+}
+else
+{
+top=top-1;
+printf("\nElement Deleted Successfully\n");
+}
+}
+void display()
+{
+if(top==-1)
+{
+printf("\n Stack underflow\n");
+}
+else
+{
+printf("\n Array element are:\n");
+for(i=0;i<=top;i++)
+printf("%d ",a[i]);
+}
+}
+
+PROGRAM-9
+
+#include <stdio.h>
+#include <string.h>
+int main()
+{
+ char str1[100], str2[100];
+ int choice=0;
+ printf("Enter the first string: ");
+ scanf("%s", str1);
+ printf("Enter the second string: ");
+ scanf("%s", str2);
+ while (choice != 4)
+ {
+ printf("\nSelect a String Operation\n1.Search\n2.Concatenate\n3.Substring\n4.Exit\n");
+ printf("\nEnter your choice: ");
+ scanf("%d", &choice);
+ switch (choice)
+ {
+ case 1:
+ if (strstr(str1, str2) != NULL)
+ {
+ printf("%s found in %s \n", str2, str1);
+ }
+ else
+ {
+ printf("%s not found in %s \n", str2, str1);
+ }
+ break;
+ case 2:
+ strcat(str1, str2);
+ printf("Concatenated string: %s\n", str1);
+ break;
+ case 3:
+ if (strstr(str1, str2) != NULL)
+ {
+ printf("%s is a substring of %s \n", str2, str1);
+ }
+ else
+ {
+ printf("%s is not a substring of %s \n", str2, str1);
+ }
+ break;
+ case 4:
+ printf("Exiting the program.\n");
+ break;
+ default:
+ printf("Invalid choice.\n");
+ }
+ }
+ return 0;
+}
+
+PROGRAM-10
+
+#include<stdio.h>
+void bsort(int a[],int n)
+{
+ int step,temp,i;
+ for(step=0;step<n-1;step++)
+ {
+   for(i=0;i<n-step-1;i++)
+   {
+     if(a[i]>a[i+1])
+     {
+       temp=a[i];
+       a[i]=a[i+1];
+       a[i+1]=temp;
+     }
+   }
+ }
+ printf("Sorted array :");
+ for(i=0;i<n;i++)
+ {
+ printf("%d ",a[i]);
+ }
+ }
+void ssort(int a[],int n)
+ 
+ {
+   int i,j,min,t;
+   for (i = 0; i < n - 1; i++)
+   {
+     min= i;
+      for (j = i + 1; j < n; j++)
+       {
+   if (a[j] < a[min])
+    min= j;
+}
+   if (min != i)
+{
+  t=a[i];
+  a[i]=a[min];
+  a[min]=t;
+         }
+  }
+ printf("Sorted array :");
+ for(i=0;i<n;i++)
+ {
+ printf("%d ",a[i]);
+ }
+ }
+ void isort(int a[],int n)
+ {
+   int i,j,min;
+   for(i=1;i<n;i++)
+   {
+     min=a[i];
+     j=i-1;
+     while(min<a[j] && j >= 0)
+     {
+       a[j+1]=a[j];
+       j=j-1;
+      }
+      a[j+1]=min;
+    }
+    printf("Sorted array :");
+ for(i=0;i<n;i++)
+ {
+ printf("%d ",a[i]);
+ }
+ 
+   }
+   
+ int main()
+ {
+  int a[100],n,i,ch;
+  printf("Enter the limit of the array :");
+  scanf("%d",&n);
+  printf("Enter the elements of the array :");
+  for(i=0;i<n;i++)
+  {
+     scanf("%d",&a[i]);
+  }
+  printf("1.Bubble sort\n2.Selection sort \n3.Insertion sort\n4.Exit\n");
+  printf("Enter your choice :");
+  scanf("%d",&ch);
+  switch(ch)
+  {
+    case 1:bsort(a,n);
+           break;
+   case 2:ssort(a,n);
+          break;
+    case 3:isort(a,n);
+          break;
+   case 4:
+         break;
+           
+    default:printf("Invalid entry");
+            break;
+   }
+   return 0;
+  }
